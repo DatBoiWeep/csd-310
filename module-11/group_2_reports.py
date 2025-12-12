@@ -21,7 +21,7 @@ JOIN Asset a ON c.ClientID = a.ClientID
 """)
 client_list = cursor.fetchall()
 for client in client_list:
-    print("Client Name: {} {} | Asset Type: {} | Asset Value: {}\n".format(client[0],
+    print("Client Name: {} {} | Asset Type: {} | Asset Value: ${:,.2f}\n".format(client[0],
                                                                            client[1],
                                                                            client[2],
                                                                            client[3]))
@@ -35,7 +35,7 @@ FROM Asset
 """)
 assets = cursor.fetchall()
 for asset in assets:
-    print("Total Clients: {}\nAverage of Total Assets: {}".format(asset[0],
+    print("Total Clients: {}\nAverage of Total Assets: ${:,.2f}".format(asset[0],
                                                                   asset[1]))
 
 
