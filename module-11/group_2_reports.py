@@ -52,12 +52,14 @@ for client in clients:
                                                    client[1]))
 
 
-#Report 4: Client transactions per month
-print("\n\n--- Report 4: Client Transactions Per Month ---")
+#Report 4: Clients with more than 10 transactions in a month
+print("\n\n--- Report 4: High Activity Clients (10+ Transactions/Month) ---")
 cursor.execute("""
-SELECT ClientID, COUNT(ClientID), MONTHNAME(DateMade)
-FROM Transaction
-GROUP BY ClientID, MONTHNAME(DateMade)
+SELECT ClientID, COUNT(*) AS TransactionCount, MONTHNAME(DateMade) AS Month
+FROM `Transaction`
+GROUP BY ClientID, MONTH(DateMade), MONTHNAME(DateMade)
+HAVING COUNT(*) > 10
+ORDER BY ClientID, MONTH(DateMade)
 """)
 transactions = cursor.fetchall()
 for transaction in transactions:
