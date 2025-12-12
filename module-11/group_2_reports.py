@@ -55,7 +55,7 @@ for client in clients:
 #Report 4: Clients with more than 10 transactions in a month
 print("\n\n--- Report 4: High Activity Clients (10+ Transactions/Month) ---")
 cursor.execute("""
-SELECT ClientID, COUNT(*) AS TransactionCount, MONTHNAME(DateMade) AS Month
+SELECT ClientID, COUNT(ClientID) AS TransactionCount, MONTHNAME(DateMade) AS Month
 FROM `Transaction`
 GROUP BY ClientID, MONTH(DateMade), MONTHNAME(DateMade)
 HAVING COUNT(*) > 10
