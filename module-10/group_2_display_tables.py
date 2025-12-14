@@ -50,7 +50,7 @@ CREATE TABLE Asset (
     AssetID INT AUTO_INCREMENT PRIMARY KEY,
     ClientID INT,
     AssetType VARCHAR(50),
-    AssetValue DECIMAL(12,2),
+    AssetValue INT,
     FOREIGN KEY (ClientID) REFERENCES Client(ClientID)
 )
 """)
@@ -59,7 +59,7 @@ cursor.execute("""
 CREATE TABLE Transaction (
     TransactionID INT AUTO_INCREMENT PRIMARY KEY,
     ClientID INT,
-    Date DATE,
+    DateMade DATE,
     Type VARCHAR(50),
     Amount DECIMAL(10,2),
     FOREIGN KEY (ClientID) REFERENCES Client(ClientID)
@@ -79,29 +79,54 @@ CREATE TABLE Employee (
 # Insert sample data
 cursor.executemany("INSERT INTO Client (FirstName, LastName, ContactInfo, DateAdded) VALUES (%s, %s, %s, %s)", [
     ("Alice", "Smith", "alice@example.com", "2025-06-15"),
+    ("Tara","Gonzales","tara@example.com","2025-06-21"),
     ("Bob", "Jones", "bob@example.com", "2025-07-01"),
     ("Carol", "Lee", "carol@example.com", "2025-08-10"),
     ("David", "Kim", "david@example.com", "2025-09-12"),
-    ("Eva", "Chen", "eva@example.com", "2025-10-20"),
-    ("Frank", "Hall", "frank@example.com", "2025-11-25")
+    ("Eva", "Chen", "eva@example.com", "2025-10-01"),
+    ("Alexander", "Weston", "alexander@example.com", "2025-10-28"),
+    ("Frank", "Hall", "frank@example.com", "2025-11-25"),
+    ("Eliza", "Grayson", "eliza@example.com", "2025-11-27")
 ])
 
 cursor.executemany("INSERT INTO Asset (ClientID, AssetType, AssetValue) VALUES (%s, %s, %s)", [
-    (1, "Retirement", 250000.00),
-    (2, "Investment", 180000.00),
-    (3, "Savings", 95000.00),
-    (4, "Real Estate", 320000.00),
-    (5, "Stocks", 150000.00),
-    (6, "Bonds", 120000.00)
+    (1, "Retirement", 250000),
+    (2, "Savings", 12000),
+    (3, "Investment", 180000),
+    (4, "Savings", 95000),
+    (5, "Real Estate", 320000),
+    (6, "Stocks", 150000),
+    (7, "Retirement", 112000),
+    (8, "Bonds", 120000),
+    (9, "Investment", 50000)
 ])
 
-cursor.executemany("INSERT INTO Transaction (ClientID, Date, Type, Amount) VALUES (%s, %s, %s, %s)", [
+cursor.executemany("INSERT INTO Transaction (ClientID, DateMade, Type, Amount) VALUES (%s, %s, %s, %s)", [
     (1, "2025-06-16", "Deposit", 5000.00),
-    (2, "2025-07-02", "Withdrawal", 2000.00),
-    (3, "2025-08-11", "Deposit", 3000.00),
-    (4, "2025-09-13", "Transfer", 1000.00),
-    (5, "2025-10-21", "Deposit", 4000.00),
-    (6, "2025-11-26", "Withdrawal", 1500.00)
+    (1, "2025-06-20", "Deposit", 6000.00),
+    (2, "2025-06-22", "Transfer", 3000.00),
+    (3, "2025-07-02", "Withdrawal", 2000.00),
+    (3, "2025-07-10", "Transfer", 6000.00),
+    (3, "2025-07-11", "Deposit", 10000.00),
+    (3, "2025-07-15", "Deposit", 3000.00),
+    (4, "2025-08-11", "Deposit", 3000.00),
+    (5, "2025-09-13", "Transfer", 1000.00),
+    (6, "2025-10-02", "Deposit", 4000.00),
+    (6, "2025-10-04", "Transfer", 10000.00),
+    (6, "2025-10-08", "Deposit", 5000.00),
+    (6, "2025-10-10", "Deposit", 4000.00),
+    (6, "2025-10-12", "Deposit", 3000.00),
+    (6, "2025-10-15", "Withdrawal", 20000.00),
+    (6, "2025-10-16", "Deposit", 2000.00),
+    (6, "2025-10-18", "Transfer", 8000.00),
+    (6, "2025-10-19", "Deposit", 3000.00),
+    (6, "2025-10-21", "Deposit", 4000.00),
+    (6, "2025-10-24", "Deposit", 1000.00),
+    (7, "2025-10-29", "Transfer", 50000.00),
+    (7, "2025-10-30", "Deposit", 3000.00),
+    (7, "2025-10-30", "Deposit", 5000.00),
+    (8, "2025-11-26", "Withdrawal", 1500.00),
+    (9, "2025-11-30", "Deposit", 10000.00)
 ])
 
 cursor.executemany("INSERT INTO Employee (FirstName, LastName, Role, EmploymentType) VALUES (%s, %s, %s, %s)", [
